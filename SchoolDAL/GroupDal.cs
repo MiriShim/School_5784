@@ -33,10 +33,11 @@ namespace SchoolDAL
         }
 
         public object Get(int id)
-        {
+        {  
+            ((UserGittyDbContext)dbContext).UserGroups.Find(id);
+
             //using UserGittyDbContext ctx = new UserGittyDbContext();
-             
-            return ((UserGittyDbContext)dbContext).UserGroups.Find(id);
+            //return ctx.UserGroups.Find(id);
         }
 
         public List<object> GetAll()
