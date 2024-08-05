@@ -23,10 +23,9 @@ namespace SchoolDAL
               
               collection.AddScoped(typeof(IDAL.IGroupDal), typeof(SchoolDAL.GroupDal));
 
-              collection.AddDbContext<UserGittyDbContext>(options =>
-                    options.UseSqlServer() );
-                  //  options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
+              //collection.AddDbContext<UserGittyDbContext>(options =>
+                //    options.UseSqlServer() );
+ 
 
             return collection;  
         }

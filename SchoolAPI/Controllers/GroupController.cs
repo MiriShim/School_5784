@@ -11,13 +11,11 @@ namespace SchoolAPI.Controllers
     public class GroupController : ControllerBase
     {
         private readonly IGroupBL iGroupBL;
-        private readonly DbContext dbContext;
-
-        public GroupController(IGroupBL _iGroupBL,DbContext _context)
+ 
+        public GroupController(IGroupBL _iGroupBL )
         {
             iGroupBL = _iGroupBL;
-            dbContext = _context;
-        }
+         }
 
 
 

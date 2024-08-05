@@ -13,11 +13,10 @@ namespace SchoolBL
         private readonly IDAL.IGroupDal groupDal;
         private readonly DbContext dbContext;
 
-        public GroupBL(IGroupDal _groupDal,DbContext _dbContext)
+        public GroupBL(IGroupDal _groupDal)
         {
             groupDal = _groupDal;   
-            dbContext= _dbContext;
-        }
+         }
 
         public int AddNew(object entity)
         {

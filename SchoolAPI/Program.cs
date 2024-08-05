@@ -1,8 +1,11 @@
 using Accessories;
 
 using IBL;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
+using SchoolDAL;
+using SchoolDAL.Model;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,8 +20,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAllDependencies();
 
 
+var connectionString = builder.Configuration.GetConnectionString("SchollConnStr");
+//אם רוצים את מחרוזת החיבור במחלקה אחרת או בשכבה אחרת,
+// כך ניתן לכאורה להזריק את מחרוזת החיבור
+//builder.Services.AddSingleton<UserGittyDbContext>(new UserGittyDbContext(connectionString));
+ 
+//או שאפשר גם להזריק את כל אוביקט ה-configuration
+
+//הזרקת הקונטקסט לכל מקום בו הוא נדרש:
+builder.Services.AddDbContext<SchoolDbContext >(options =>
+    options.UseSqlServer(connectionString));
+
+
 //שולחת לפונקציה חיצונית שתטפל בכל ההפניות
-  Accessories.AddDependencies.AddAllDependencies(builder.Services);
+Accessories.AddDependencies.AddAllDependencies(builder.Services);
  
 
 

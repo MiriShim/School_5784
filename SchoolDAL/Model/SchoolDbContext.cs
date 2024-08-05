@@ -5,16 +5,17 @@ using Microsoft.Extensions.Configuration;
 
 namespace SchoolDAL.Model;
 
-public partial class UserGittyDbContext : DbContext
+public partial class SchoolDbContext : DbContext
 {
     private readonly IConfiguration Configuration;
 
-    public UserGittyDbContext(IConfiguration configuration)
-    {
-        Configuration = configuration;  
-    }
+    //public UserGittyDbContext(IConfiguration configuration)
+    //{
+    //    Configuration = configuration;  
+    //}
 
-    public UserGittyDbContext(DbContextOptions<UserGittyDbContext> options)
+
+    public SchoolDbContext(DbContextOptions<SchoolDbContext> options)
         : base(options)
     {
     }
@@ -33,12 +34,20 @@ public partial class UserGittyDbContext : DbContext
 
 #warning To protect potentially sensitive information in your connection string, 
 #warning        you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
- 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-      // => optionsBuilder.UseSqlServer("name=SchollConnStr");
-       => optionsBuilder.UseSqlServer(Configuration.GetConnectionString ("SchollConnStr"));
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+        if (!optionsBuilder.IsConfigured)
+        {
+            // קריאה למחרוזת החיבור מה-`appsettings.json`
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("SchollConnStr"));
+        };
+    }
+// => optionsBuilder.UseSqlServer("name=SchollConnStr");
+// => optionsBuilder.UseSqlServer(Configuration.GetConnectionString ("SchollConnStr"));
+// => optionsBuilder.UseSqlServer(
+//     "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\MiriShim\\Documents\\UserPermissionsDB.mdf;Integrated Security=True;Connect Timeout=30");
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<GroupPermission>(entity =>
         {

@@ -1,4 +1,5 @@
-﻿using SchoolDAL.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using SchoolDAL.Model;
 using System;
 using System.Threading.Tasks;
 
@@ -6,6 +7,14 @@ namespace SchoolDAL
 {
     public class UserDal :  IDAL.IObjectDAL
     {
+        private readonly Model.SchoolDbContext dbContext;
+
+
+        public UserDal (SchoolDbContext _dbContext)
+        {
+            dbContext = _dbContext;
+        }
+
         //   public bool Add(User user)
         //   {
         //       try {
@@ -91,10 +100,9 @@ namespace SchoolDAL
         {
             try
             {
-                using Model.UserGittyDbContext ctx = new Model.UserGittyDbContext();
-                ctx.Add(entity );
+                dbContext.Add(entity );
                 //האם יש הבדל???           ctx.Add(user);
-                ctx.SaveChanges();
+                dbContext.SaveChanges();
                 return true;
             }
             catch

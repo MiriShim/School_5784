@@ -14,13 +14,12 @@ namespace SchoolDAL
     public class GroupDal : IGroupDal
     {
         
-        private readonly DbContext dbContext;
-        
+        private readonly Model.SchoolDbContext dbContext;
+ 
 
-
-        public GroupDal(DbContext _dbContext )
-        {
-                dbContext= _dbContext;  
+        public GroupDal(SchoolDbContext _dbContext )
+        { 
+             dbContext= _dbContext;  
         }
         public bool Add(object entity)
         {
@@ -34,7 +33,7 @@ namespace SchoolDAL
 
         public object Get(int id)
         {  
-            ((UserGittyDbContext)dbContext).UserGroups.Find(id);
+           return  dbContext.UserGroups.Find(id);
 
             //using UserGittyDbContext ctx = new UserGittyDbContext();
             //return ctx.UserGroups.Find(id);
@@ -42,11 +41,10 @@ namespace SchoolDAL
 
         public List<object> GetAll()
         {
-            using  UserGittyDbContext ctx = new  UserGittyDbContext();
-            //גם זה תקין::
+             //גם זה תקין::
             // return ctx.UserGroups.Cast<object >().ToList();  
             //או באמצעות פונקציית לינק פשוטה
-             return ctx.UserGroups.Select(a=>(object)a).ToList();  
+             return dbContext.UserGroups.Select(a=>(object)a).ToList();  
             
         }
 
