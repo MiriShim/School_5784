@@ -26,6 +26,8 @@ var connectionString = builder.Configuration.GetConnectionString("SchollConnStr"
 //builder.Services.AddSingleton<UserGittyDbContext>(new UserGittyDbContext(connectionString));
  
 //או שאפשר גם להזריק את כל אוביקט ה-configuration
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
 
 //הזרקת הקונטקסט לכל מקום בו הוא נדרש:
 builder.Services.AddDbContext<SchoolDbContext >(options =>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -7,7 +8,7 @@ namespace SchoolDAL.Model;
 
 public partial class SchoolDbContext : DbContext
 {
-    private readonly IConfiguration Configuration;
+    private readonly IConfiguration configuration;
 
     //public UserGittyDbContext(IConfiguration configuration)
     //{
@@ -15,9 +16,10 @@ public partial class SchoolDbContext : DbContext
     //}
 
 
-    public SchoolDbContext(DbContextOptions<SchoolDbContext> options)
+    public SchoolDbContext(DbContextOptions<SchoolDbContext> options,IConfiguration _configuration)
         : base(options)
     {
+        configuration = _configuration;
     }
 
     public virtual DbSet<GroupPermission> GroupPermissions { get; set; }
@@ -36,10 +38,16 @@ public partial class SchoolDbContext : DbContext
 #warning        you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+        //בדיקה שמחרוזת החיבור ניתנת להשגה כאן:
+
+        string str = configuration.GetConnectionString("SchollConnStr");
+        Debug.Print("OK");
+        Debug.Print(str);
+
         if (!optionsBuilder.IsConfigured)
         {
             // קריאה למחרוזת החיבור מה-`appsettings.json`
-            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("SchollConnStr"));
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("SchollConnStr"));
         };
     }
 // => optionsBuilder.UseSqlServer("name=SchollConnStr");
