@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+
 
 namespace SchoolDAL
 {
@@ -15,15 +18,29 @@ namespace SchoolDAL
     {
         
         private readonly Model.SchoolDbContext dbContext;
- 
+        private readonly ILogger logger;
 
-        public GroupDal(SchoolDbContext _dbContext )
+
+        public GroupDal(SchoolDbContext _dbContext,ILogger<GroupDal > _logger )
         { 
              dbContext= _dbContext;  
+            logger= _logger;    
         }
-        public bool Add(object entity)
+        public int Add(object entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //dbContext.UserGroups.Add(entity);
+                dbContext.Add(entity);
+                dbContext.SaveChanges();
+
+                return 1;
+            }
+            catch 
+             {
+                logger.Log(LogLevel.Error, "נכשל בשמירת אוביקט קבוצה");
+                return 0; 
+            }
         }
 
         public bool Delete(int id)
@@ -32,8 +49,10 @@ namespace SchoolDAL
         }
 
         public object Get(int id)
-        {  
-           return  dbContext.UserGroups.Find(id);
+        {
+            logger.Log(LogLevel.Information, "Get");
+
+            return dbContext.UserGroups.Find(id);
 
             //using UserGittyDbContext ctx = new UserGittyDbContext();
             //return ctx.UserGroups.Find(id);
@@ -55,7 +74,7 @@ namespace SchoolDAL
 
         public bool Update(object entity)
         {
-            throw new NotImplementedException();
+            return false;
         }
     }
 

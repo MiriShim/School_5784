@@ -16,14 +16,12 @@ namespace SchoolBL
         public GroupBL(IGroupDal _groupDal)
         {
             groupDal = _groupDal;   
-         }
+        }
 
         public int AddNew(object entity)
         {
-              groupDal.Add(entity);
-            //have to return the new id
-            return 0;
-        }
+            return groupDal.Add(entity);
+          }      
 
         public List<object> GetAll()
         {

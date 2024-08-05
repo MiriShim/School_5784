@@ -96,18 +96,18 @@ namespace SchoolDAL
         //           return false;
         //       }
         //   }
-        public bool Add(object entity)
+        public int Add(object entity)
         {
             try
             {
                 dbContext.Add(entity );
                 //האם יש הבדל???           ctx.Add(user);
                 dbContext.SaveChanges();
-                return true;
+                return 1;
             }
             catch
             {
-                return false;
+                return 0;
             }
 
         }

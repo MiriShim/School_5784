@@ -1,6 +1,8 @@
 ﻿using IBL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
+using System.Text;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -28,8 +30,6 @@ namespace SchoolAPI.Controllers
         }
 
 
-
-
         //// GET api/<GroupController>/5
         //[HttpGet("{id}")]
         //public string Get(int id)
@@ -38,13 +38,14 @@ namespace SchoolAPI.Controllers
         //}
 
 
+        // POST api/<GroupController>
+        [HttpPost]
+        public  ActionResult   Post([FromBody] string value)
+        {
+            iGroupBL.AddNew(value );
 
-
-        //// POST api/<GroupController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+            return Ok (new { Message = "Item addede successfuly" });
+        }
 
         //// PUT api/<GroupController>/5
         //[HttpPut("{id}")]

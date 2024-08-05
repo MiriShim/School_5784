@@ -27,14 +27,14 @@ namespace SchoolAPI.Controllers
             ibl.AddNew(User);
 
             return true;
-        }
+        } 
         
         
         
-        [HttpPost("PostWithPassword{value}")]
-        public bool PostWithPassword([FromBody] User value)
+        [HttpPost("PostWithPassword")]
+        public bool PostWithPassword([FromBody] User user)
         {
-            ibl.AddNew(User);
+            ibl.AddNew(user);
             return true;
         }
         //// GET: api/<UserAPI>

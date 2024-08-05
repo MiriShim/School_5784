@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using SchoolDAL;
 using SchoolDAL.Model;
+using System.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddAllDependencies();
+
+//שולחת לפונקציה חיצונית שתטפל בכל ההפניות
+Accessories.AddDependencies.AddAllDependencies(builder.Services);
+//או על ידי פונקצית הרחבה::
+//builder.Services.AddAllDependencies();
 
 
 var connectionString = builder.Configuration.GetConnectionString("SchollConnStr");
@@ -34,9 +39,37 @@ builder.Services.AddDbContext<SchoolDbContext >(options =>
     options.UseSqlServer(connectionString));
 
 
-//שולחת לפונקציה חיצונית שתטפל בכל ההפניות
-Accessories.AddDependencies.AddAllDependencies(builder.Services);
+//אפשרויות התיעוד:
+//Console
+//Debug
+//EventSource
+//EventLog: Windows only
+//הוספת הזרקת תלות לצורך logging
+builder.Logging.ClearProviders();
+builder.Logging.AddDebug ();
+builder.Logging.AddEventSourceLogger  ();
+
+
+#region Events viewer:
+// מחזיר את כל מקורות הרישומים שמותקנים במערכת
+string[] eventLogSources = EventLog.GetEventLogs().Select(a => a.LogDisplayName).ToArray();
+
+string sourceName = "Web api logs";
+
+// מחפש אם מקור הרישומים קיים ברשימה
+if (!eventLogSources.Contains(sourceName))
+    EventLog.CreateEventSource(sourceName, "Application");
+
  
+
+builder.Logging.AddEventLog(eventLogSettings =>
+{
+    eventLogSettings.SourceName = sourceName;
+});
+
+
+
+#endregion
 
 
 var app = builder.Build();
