@@ -54,8 +54,7 @@ namespace SchoolDAL
 
             return dbContext.UserGroups.Find(id);
 
-            //using UserGittyDbContext ctx = new UserGittyDbContext();
-            //return ctx.UserGroups.Find(id);
+             
         }
 
         public List<object> GetAll()

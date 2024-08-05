@@ -9,16 +9,12 @@ namespace SchoolDAL.Model;
 public partial class SchoolDbContext : DbContext
 {
     private readonly IConfiguration configuration;
+  
 
-    //public UserGittyDbContext(IConfiguration configuration)
-    //{
-    //    Configuration = configuration;  
-    //}
-
-
-    public SchoolDbContext(DbContextOptions<SchoolDbContext> options,IConfiguration _configuration)
+    public SchoolDbContext(DbContextOptions<SchoolDbContext> options, IConfiguration _configuration)
         : base(options)
     {
+        
         configuration = _configuration;
     }
 
@@ -33,25 +29,26 @@ public partial class SchoolDbContext : DbContext
     public virtual DbSet<UserGroupMembership> UserGroupMemberships { get; set; }
 
     public virtual DbSet<UserPermission> UserPermissions { get; set; }
-
-    #warning   To protect potentially sensitive information in your connection string, 
-    #warning   you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-
+ 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
         //בדיקה שמחרוזת החיבור ניתנת להשגה כאן:
 
         string str = configuration.GetConnectionString("SchollConnStr");
         Debug.Print("OK");
-        Debug.Print(str);
-
+ 
         if (!optionsBuilder.IsConfigured)
         {
-            // קריאה למחרוזת החיבור מה-`appsettings.json`
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("SchollConnStr"));
-        };
-    } 
+            var connectionString = configuration.GetConnectionString("SchollConnStr");
 
-protected override void OnModelCreating(ModelBuilder modelBuilder)
+            // קריאה למחרוזת החיבור מה-`appsettings.json`
+            optionsBuilder.UseSqlServer(connectionString);
+        };
+    }   
+
+
+
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<GroupPermission>(entity =>
         {

@@ -15,19 +15,18 @@ namespace SchoolDAL
     /// <summary>
     /// מנהל את כל התלויות שקשורות לשכבת ה- DAL
     /// </summary>
-    public static  class DalCommon
+    public static class DalCommon
     {
-        public static IServiceCollection AddDALDependencies(this IServiceCollection collection)
+        public static IServiceCollection AddDALDependencies(this IServiceCollection serviceCollection)
         {
-              collection.AddScoped(typeof(IDAL.IObjectDAL), typeof(SchoolDAL.UserDal));
-              
-              collection.AddScoped(typeof(IDAL.IGroupDal), typeof(SchoolDAL.GroupDal));
+            serviceCollection.AddScoped(typeof(IDAL.IObjectDAL), typeof(SchoolDAL.UserDal));
 
-              //collection.AddDbContext<UserGittyDbContext>(options =>
-                //    options.UseSqlServer() );
- 
+            serviceCollection.AddScoped(typeof(IDAL.IGroupDal), typeof(SchoolDAL.GroupDal));
 
-            return collection;  
+            //הזרקת הקונטקסט לכל מקום בו הוא נדרש:
+            serviceCollection.AddDbContext<SchoolDbContext>();
+                 
+            return serviceCollection;
         }
     }
 }

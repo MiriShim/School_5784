@@ -34,11 +34,6 @@ var connectionString = builder.Configuration.GetConnectionString("SchollConnStr"
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 
-//הזרקת הקונטקסט לכל מקום בו הוא נדרש:
-builder.Services.AddDbContext<SchoolDbContext >(options =>
-    options.UseSqlServer(connectionString));
-
-
 //אפשרויות התיעוד:
 //Console
 //Debug
@@ -51,17 +46,16 @@ builder.Logging.AddEventSourceLogger  ();
 
 
 #region Events viewer:
-// מחזיר את כל מקורות הרישומים שמותקנים במערכת
-string[] eventLogSources = EventLog.GetEventLogs().Select(a => a.LogDisplayName).ToArray();
-
+  
 string sourceName = "Web api logs";
 
-// מחפש אם מקור הרישומים קיים ברשימה
-if (!eventLogSources.Contains(sourceName))
+if (!EventLog.SourceExists(sourceName))
+
+    // מחפש אם מקור הרישומים קיים ברשימה
     EventLog.CreateEventSource(sourceName, "Application");
 
  
-
+//ניתן להפעיל רק כמנהל מערכת - admin
 builder.Logging.AddEventLog(eventLogSettings =>
 {
     eventLogSettings.SourceName = sourceName;
