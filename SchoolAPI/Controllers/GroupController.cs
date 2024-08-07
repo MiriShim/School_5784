@@ -1,4 +1,5 @@
-﻿using IBL;
+﻿using DTO;
+using IBL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -40,7 +41,7 @@ namespace SchoolAPI.Controllers
 
         // POST api/<GroupController>
         [HttpPost]
-        public  ActionResult   Post([FromBody] string value)
+        public  ActionResult   Post([FromBody] GroupDTO  value)
         {
             iGroupBL.AddNew(value );
 

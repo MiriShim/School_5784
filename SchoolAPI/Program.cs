@@ -34,6 +34,7 @@ var connectionString = builder.Configuration.GetConnectionString("SchollConnStr"
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
 
+
 //אפשרויות התיעוד:
 //Console
 //Debug
@@ -65,7 +66,7 @@ builder.Logging.AddEventLog(eventLogSettings =>
 
 #endregion
 
-
+ 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

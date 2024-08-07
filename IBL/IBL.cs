@@ -1,7 +1,7 @@
 ﻿namespace IBL;
 
-public interface  IBL
+public interface  IBL<TDTO>
 {
-    int AddNew(object entity);
-    List<object> GetAll();
+    int AddNew(TDTO entity);
+    List<TDTO> GetAll();
 }

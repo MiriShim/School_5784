@@ -1,5 +1,10 @@
-﻿using IDAL;
+﻿using AutoMapper;
+using DTO;
+using IBL;
+using IDAL;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using SchoolDAL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,24 +13,35 @@ using System.Threading.Tasks;
 
 namespace SchoolBL
 {
-    public  class GroupBL : IBL.IGroupBL 
+    public  class GroupBL : IGroupBL 
     {
-        private readonly IDAL.IGroupDal groupDal;
+        private readonly IGroupDal<SchoolDAL.Model.UserGroup> groupDal;
         private readonly DbContext dbContext;
 
-        public GroupBL(IGroupDal _groupDal)
+        public GroupBL(IGroupDal<UserGroup> _groupDal)
         {
             groupDal = _groupDal;   
         }
 
-        public int AddNew(object entity)
+        public int AddNew(GroupDTO entity)
         {
-            return groupDal.Add(entity);
+            MapperConfiguration mConfig = new MapperConfiguration(cfg => 
+            cfg.CreateMap<UserGroup, DTO.GroupDTO>().ReverseMap());
+            Mapper mapper = new AutoMapper.Mapper(mConfig);
+
+              groupDal.Add(mapper.Map<UserGroup>(entity));
+            return 1;
           }      
 
-        public List<object> GetAll()
+        public List<GroupDTO> GetAll()
         {
-           return  groupDal.GetAll();
+            // return  groupDal.GetAll().Select(a=>(GroupDTO)a).ToList();
+
+            MapperConfiguration mConfig = new MapperConfiguration(cfg => cfg.CreateMap<UserGroup, DTO.GroupDTO>());
+            Mapper mapper = new AutoMapper.Mapper(mConfig );
+
+            
+           return  groupDal.GetAll().Select(a=>mapper.Map<DTO.GroupDTO >(a)).ToList();
         }
 
         public object GetGroupsSummery()

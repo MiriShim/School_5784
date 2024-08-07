@@ -6,15 +6,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace SchoolDAL.Model;
 
-public partial class SchoolDbContext : DbContext
+public partial class SchoolDbContext : DbContext 
 {
     private readonly IConfiguration configuration;
   
 
     public SchoolDbContext(DbContextOptions<SchoolDbContext> options, IConfiguration _configuration)
         : base(options)
-    {
-        
+    {      
         configuration = _configuration;
     }
 

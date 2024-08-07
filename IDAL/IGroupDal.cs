@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace IDAL
 {
-    public  interface IGroupDal : IDAL.IObjectDAL
-    {
-        List<object> GetAllGroupsWithMembersCounter();
+    public  interface IGroupDal<T> : IDAL.IGeneralDAL <T>      {
+        List<object > GetAllGroupsWithMembersCounter();
     }
 }

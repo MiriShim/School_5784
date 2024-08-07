@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using IDAL;
 using System.ComponentModel;
 using System.Reflection;
+using DTO;
 
 namespace SchoolBL
 {
-    public class UserBL : IBL.IBL
+    public class UserBL : IBL.IBL<UserDTO>
     {
         private readonly IDAL.IObjectDAL iUserDal;
 
@@ -19,7 +20,7 @@ namespace SchoolBL
             iUserDal = dal;
         }
 
-        public int AddNew(object user)
+        public int AddNew(UserDTO user)
         {
             iUserDal.Add(user);
             /////////////
@@ -32,9 +33,9 @@ namespace SchoolBL
             return 0;
         }
 
-        public List<object> GetAll()
+        public List<UserDTO> GetAll()
         {
-            return iUserDal .GetAll();
+            return iUserDal .GetAll().Cast<UserDTO>().ToList();
         }
 
         //public User Get(int id)

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DTO;
+using Microsoft.AspNetCore.Mvc;
 using SchoolBL;
 using SchoolDAL.Model;
 
@@ -12,9 +13,9 @@ namespace SchoolAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IBL.IBL ibl;
+        private readonly IBL.IBL<UserDTO > ibl;
 
-        public UserController(IBL.IBL _iBl)
+        public UserController(IBL.IBL<UserDTO > _iBl)
         {
             ibl = _iBl;
         }
@@ -22,9 +23,9 @@ namespace SchoolAPI.Controllers
         
         // POST api/<UserAPI>
         [HttpPost]
-        public bool Post([FromBody] User value)
+        public bool Post([FromBody] UserDTO value)
         {
-            ibl.AddNew(User);
+            ibl.AddNew(value );
 
             return true;
         } 
@@ -32,7 +33,7 @@ namespace SchoolAPI.Controllers
         
         
         [HttpPost("PostWithPassword")]
-        public bool PostWithPassword([FromBody] User user)
+        public bool PostWithPassword([FromBody] UserDTO user)
         {
             ibl.AddNew(user);
             return true;

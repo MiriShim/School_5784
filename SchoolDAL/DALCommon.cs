@@ -9,6 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+ 
+ using Microsoft.EntityFrameworkCore.Metadata.Internal;
+  
 
 namespace SchoolDAL
 {
@@ -21,8 +24,8 @@ namespace SchoolDAL
         {
             serviceCollection.AddScoped(typeof(IDAL.IObjectDAL), typeof(SchoolDAL.UserDal));
 
-            serviceCollection.AddScoped(typeof(IDAL.IGroupDal), typeof(SchoolDAL.GroupDal));
-
+            serviceCollection.AddScoped(typeof(IDAL.IGroupDal<SchoolDAL.Model.UserGroup >), typeof(SchoolDAL.GroupDal));
+ 
             //הזרקת הקונטקסט לכל מקום בו הוא נדרש:
             serviceCollection.AddDbContext<SchoolDbContext>();
                  

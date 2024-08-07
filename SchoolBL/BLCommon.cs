@@ -14,7 +14,7 @@ namespace SchoolBL
     {
         public static IServiceCollection AddBLDependencies(this IServiceCollection collection)
         {
-            collection.AddTransient(typeof(IBL.IBL), typeof(SchoolBL.UserBL));
+            collection.AddTransient(typeof(IBL.IBL<DTO.UserDTO>), typeof(SchoolBL.UserBL));
 
             collection.AddScoped(typeof(IBL.IGroupBL), typeof(SchoolBL.GroupBL));
 

@@ -9,12 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 
 namespace SchoolDAL
 {
-    
-    public class GroupDal : IGroupDal
+
+    public class GroupDal : IGroupDal<UserGroup>
     {
         
         private readonly Model.SchoolDbContext dbContext;
@@ -26,29 +27,30 @@ namespace SchoolDAL
              dbContext= _dbContext;  
             logger= _logger;    
         }
-        public int Add(object entity)
+        public bool Add(Model.UserGroup  entity)
         {
             try
             {
-                //dbContext.UserGroups.Add(entity);
                 dbContext.Add(entity);
                 dbContext.SaveChanges();
 
-                return 1;
+                return true ;
             }
             catch 
              {
                 logger.Log(LogLevel.Error, "נכשל בשמירת אוביקט קבוצה");
-                return 0; 
+                return false ; 
             }
         }
+
+       
 
         public bool Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public object Get(int id)
+        public UserGroup Get(int id)
         {
             logger.Log(LogLevel.Information, "Get");
 
@@ -57,12 +59,12 @@ namespace SchoolDAL
              
         }
 
-        public List<object> GetAll()
+        public List<UserGroup> GetAll()
         {
              //גם זה תקין::
             // return ctx.UserGroups.Cast<object >().ToList();  
             //או באמצעות פונקציית לינק פשוטה
-             return dbContext.UserGroups.Select(a=>(object)a).ToList();  
+             return dbContext.UserGroups.ToList();  
             
         }
 
@@ -71,10 +73,12 @@ namespace SchoolDAL
             throw new NotImplementedException();
         }
 
-        public bool Update(object entity)
+        public bool Update(UserGroup entity)
         {
-            return false;
+            throw new NotImplementedException();
         }
+ 
+ 
     }
 
     //internal class GroupDal : IDAL.IGeneralDAL<Model.UserGroup>
