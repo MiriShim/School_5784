@@ -29,7 +29,7 @@ namespace SchoolBL
             cfg.CreateMap<UserGroup, DTO.GroupDTO>().ReverseMap());
             Mapper mapper = new AutoMapper.Mapper(mConfig);
 
-              groupDal.Add(mapper.Map<UserGroup>(entity));
+            groupDal.Add(mapper.Map<UserGroup>(entity));
             return 1;
           }      
 

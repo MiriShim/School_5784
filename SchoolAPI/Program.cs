@@ -4,9 +4,11 @@ using IBL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
+using SchoolAPI;
 using SchoolDAL;
 using SchoolDAL.Model;
 using System.Diagnostics;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,21 +78,36 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
-#region כאן למדנו על פונקציות הרחבה - extension methods
-string s = "אבא";
-
-//int gimatria = new Accessories.ExtensionMethods().GetGimatria(s);
-int gimatria2 = Accessories.ExtensionMethods.StaGetGimatria(s);
-
-int gimatria = "תמר".GetGimatria(); 
-#endregion
-
-
+ 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.Use(async (context, next) =>
+{
+    var cultureQuery = context.Request.Query["culture"];
+    if (!string.IsNullOrWhiteSpace(cultureQuery))
+    {
+        var culture = new CultureInfo(cultureQuery);
+
+        CultureInfo.CurrentCulture = culture;
+        CultureInfo.CurrentUICulture = culture;
+    }
+        Debug.Print(
+            $" ****  CurrentCulture.DisplayName:  {  CultureInfo.CurrentCulture.DisplayName}");
+
+    // Call the next delegate/middleware in the pipeline.
+    await next(context);
+});
+
+app.UseShabatMiddleware();
+
+//app.Run(async (context) =>
+//{
+//    await context.Response.WriteAsync(
+//        $"****  CurrentCulture.DisplayName:  {  CultureInfo.CurrentCulture.DisplayName}");
+//});
 
 app.Run();
