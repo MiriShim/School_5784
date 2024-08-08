@@ -17,17 +17,19 @@ namespace SchoolBL
     {
         private readonly IGroupDal<SchoolDAL.Model.UserGroup> groupDal;
         private readonly DbContext dbContext;
+        private readonly IMapper mapper;    
 
-        public GroupBL(IGroupDal<UserGroup> _groupDal)
+        public GroupBL(IGroupDal<UserGroup> _groupDal, IMapper  _mapper)
         {
-            groupDal = _groupDal;   
+            groupDal = _groupDal; 
+                mapper= _mapper;    
         }
 
         public int AddNew(GroupDTO entity)
         {
-            MapperConfiguration mConfig = new MapperConfiguration(cfg => 
-            cfg.CreateMap<UserGroup, DTO.GroupDTO>().ReverseMap());
-            Mapper mapper = new AutoMapper.Mapper(mConfig);
+            //MapperConfiguration mConfig = new MapperConfiguration(cfg => 
+            //cfg.CreateMap<UserGroup, DTO.GroupDTO>().ReverseMap());
+            //Mapper mapper = new AutoMapper.Mapper(mConfig);
 
             groupDal.Add(mapper.Map<UserGroup>(entity));
             return 1;
@@ -37,8 +39,8 @@ namespace SchoolBL
         {
             // return  groupDal.GetAll().Select(a=>(GroupDTO)a).ToList();
 
-            MapperConfiguration mConfig = new MapperConfiguration(cfg => cfg.CreateMap<UserGroup, DTO.GroupDTO>());
-            Mapper mapper = new AutoMapper.Mapper(mConfig );
+            //MapperConfiguration mConfig = new MapperConfiguration(cfg => cfg.CreateMap<UserGroup, DTO.GroupDTO>());
+            //Mapper mapper = new AutoMapper.Mapper(mConfig );
 
             
            return  groupDal.GetAll().Select(a=>mapper.Map<DTO.GroupDTO >(a)).ToList();

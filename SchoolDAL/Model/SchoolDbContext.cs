@@ -32,7 +32,7 @@ public partial class SchoolDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
         //בדיקה שמחרוזת החיבור ניתנת להשגה כאן:
 
-        string str = configuration.GetConnectionString("SchollConnStr");
+        string str = configuration.GetConnectionString("BYTAConnection");
         Debug.Print("OK");
  
         if (!optionsBuilder.IsConfigured)

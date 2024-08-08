@@ -8,7 +8,7 @@ using System.Threading.Tasks.Dataflow;
 
 namespace IBL
 {
-   public interface IGroupBL : IBL <GroupDTO>
+    public interface IGroupBL : IBL <GroupDTO>
     {
         object GetGroupsSummery();
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.Threading.Tasks;
 
@@ -13,17 +14,22 @@ namespace SchoolAPI
 
         public ShabatMiddleware(RequestDelegate next)
         {
-            if (DateTime.Today.DayOfWeek == DayOfWeek.Thursday)
-                 
-                 Debug.Print(   $"****  CurrentCulture.DisplayName:  {  CultureInfo.CurrentCulture.DisplayName}"));
-
-            _next = next;
+              _next = next;
         }
 
-        public Task Invoke(HttpContext httpContext)
+        public async Task  Invoke(HttpContext httpContext)
         {
+            if (DateTime.Today.DayOfWeek == DayOfWeek.Thursday)
+            {
+                Debug.Print($"****  CurrentCulture.DisplayName:  {CultureInfo.CurrentCulture.DisplayName}");
+                Console.Write($"****  CurrentCulture.DisplayName:  {CultureInfo.CurrentCulture.DisplayName}");
 
-            return _next(httpContext);
+                await httpContext.Response.WriteAsync("****  CurrentCulture.DisplayName:  {CultureInfo.CurrentCulture.DisplayName}");
+                return  ;
+            }
+            await _next(httpContext); 
+
+            //כאן אפשר לכתוב קוד שיתבצע בדרך חזור מהשרת ללקוח
         }
     }
 

@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IDAL", "IDAL\IDAL.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accessories", "Accessories\Accessories.csproj", "{301CD613-F256-4FC2-9874-7357F7B38354}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{7E11A9F2-DAFC-4FAA-A4A2-80E0EB50A342}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{7E11A9F2-DAFC-4FAA-A4A2-80E0EB50A342}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{374ED307-2A49-4E55-B834-04BE0A277492}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{7E11A9F2-DAFC-4FAA-A4A2-80E0EB50A342}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E11A9F2-DAFC-4FAA-A4A2-80E0EB50A342}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E11A9F2-DAFC-4FAA-A4A2-80E0EB50A342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{374ED307-2A49-4E55-B834-04BE0A277492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{374ED307-2A49-4E55-B834-04BE0A277492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{374ED307-2A49-4E55-B834-04BE0A277492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{374ED307-2A49-4E55-B834-04BE0A277492}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using SchoolDAL.Model;
 using System;
 using System.Threading.Tasks;
@@ -8,11 +10,13 @@ namespace SchoolDAL
     public class UserDal :  IDAL.IObjectDAL
     {
         private readonly Model.SchoolDbContext dbContext;
+        private readonly IMapper mapper;
 
 
-        public UserDal (SchoolDbContext _dbContext)
+        public UserDal (SchoolDbContext _dbContext , IMapper _mapper)
         {
             dbContext = _dbContext;
+            mapper = _mapper;   
         }
 
         //   public bool Add(User user)

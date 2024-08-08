@@ -14,7 +14,7 @@ public class GroupDTO
 
         public string? Description { get; set; }
 
-        public DateTime? CreatedAt { get; set; }
+        public int Month { get; set; }
 
                }
  

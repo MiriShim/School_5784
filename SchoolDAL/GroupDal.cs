@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
+using AutoMapper;
 
 
 namespace SchoolDAL
@@ -20,12 +21,19 @@ namespace SchoolDAL
         
         private readonly Model.SchoolDbContext dbContext;
         private readonly ILogger logger;
+        private readonly IConfiguration configuration;
+
+        private readonly IMapper mapper;
 
 
-        public GroupDal(SchoolDbContext _dbContext,ILogger<GroupDal > _logger )
+
+        public GroupDal(SchoolDbContext _dbContext,ILogger<GroupDal> _logger, IConfiguration _configuration ,IMapper _mapper )
         { 
-             dbContext= _dbContext;  
-            logger= _logger;    
+            dbContext= _dbContext;  
+            logger= _logger; 
+            configuration= _configuration;  
+            mapper= _mapper;    
+            
         }
         public bool Add(Model.UserGroup  entity)
         {
@@ -33,12 +41,13 @@ namespace SchoolDAL
             {
                 dbContext.Add(entity);
                 dbContext.SaveChanges();
+                logger.Log(LogLevel.Information , $"קבוצה חדשה נשמרה בשם: {entity.GroupName }");
 
                 return true ;
             }
             catch 
              {
-                logger.Log(LogLevel.Error, "נכשל בשמירת אוביקט קבוצה");
+                logger.Log(LogLevel.Critical, "נכשל בשמירת אוביקט קבוצה");
                 return false ; 
             }
         }
@@ -54,9 +63,9 @@ namespace SchoolDAL
         {
             logger.Log(LogLevel.Information, "Get");
 
-            return dbContext.UserGroups.Find(id);
+            Model.UserGroup  entity= dbContext.UserGroups.Find(id);
 
-             
+            return entity;
         }
 
         public List<UserGroup> GetAll()

@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
  
  using Microsoft.EntityFrameworkCore.Metadata.Internal;
-  
+using Microsoft.IdentityModel.Protocols;
+
 
 namespace SchoolDAL
 {
@@ -22,13 +23,18 @@ namespace SchoolDAL
     {
         public static IServiceCollection AddDALDependencies(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddScoped(typeof(IDAL.IObjectDAL), typeof(SchoolDAL.UserDal));
+            
+            serviceCollection.AddScoped<IDAL.IObjectDAL ,  SchoolDAL.UserDal>() ;
 
             serviceCollection.AddScoped(typeof(IDAL.IGroupDal<SchoolDAL.Model.UserGroup >), typeof(SchoolDAL.GroupDal));
  
             //הזרקת הקונטקסט לכל מקום בו הוא נדרש:
             serviceCollection.AddDbContext<SchoolDbContext>();
-                 
+
+
+            
+
+
             return serviceCollection;
         }
     }
