@@ -37,11 +37,15 @@ public partial class SchoolDbContext : DbContext
  
         if (!optionsBuilder.IsConfigured)
         {
-            var connectionString = configuration.GetConnectionString("SchollConnStr");
+            var connectionString = configuration.GetConnectionString("BYTAConnection");
 
             // קריאה למחרוזת החיבור מה-`appsettings.json`
-            optionsBuilder.UseSqlServer(connectionString);
+            optionsBuilder.UseSqlServer (connectionString);
         };
+
+         //היה צריך לוודא שאני במצב פיתוח ולא במצב פרודקשן
+           //this .Database.EnsureCreated();
+          
     }   
 
 

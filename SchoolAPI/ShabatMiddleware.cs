@@ -19,7 +19,7 @@ namespace SchoolAPI
 
         public async Task  Invoke(HttpContext httpContext)
         {
-            if (DateTime.Today.DayOfWeek == DayOfWeek.Thursday)
+            if (DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
             {
                 Debug.Print($"****  CurrentCulture.DisplayName:  {CultureInfo.CurrentCulture.DisplayName}");
                 Console.Write($"****  CurrentCulture.DisplayName:  {CultureInfo.CurrentCulture.DisplayName}");

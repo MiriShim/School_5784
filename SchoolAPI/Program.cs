@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Globalization;
  
 using AutoMapper;
+using System.Reflection;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,9 +35,11 @@ var connectionString = builder.Configuration.GetConnectionString("SchollConnStr"
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 
  //builder.Services.AddAutoMapper(typeof( SchoolMapperConfig ));
-// builder.Services.AddSingleton(typeof( MapperConfiguration  ), typeof(SchoolMapperConfig));
-builder.Services.AddAutoMapper(cfg => cfg.AddProfile<SchoolAPI.SchoolMapperConfig >()); // or your profile's assembly
- 
+builder.Services.AddSingleton(typeof( Profile  ), typeof(SchoolMapperProfile));
+
+builder.Services.AddAutoMapper(cfg => cfg.AddProfile<SchoolAPI.SchoolMapperProfile >(),Assembly.GetExecutingAssembly ()); // or your profile's assembly
+
+
 
 //אפשרויות התיעוד:
 //Console

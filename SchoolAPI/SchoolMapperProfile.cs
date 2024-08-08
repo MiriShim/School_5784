@@ -6,9 +6,9 @@ namespace SchoolAPI
 {
    
 
-    public class SchoolMapperConfig : Profile
+    public class SchoolMapperProfile : Profile
     {
-        public SchoolMapperConfig()
+        public SchoolMapperProfile()
         {
              
             CreateMap<User , UserDTO >()
